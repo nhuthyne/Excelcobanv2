@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tài Liệu Ôn Tập Excel - Compiled by Codelo</title>
+    <style>
+        /* Thiết lập giao diện mô phỏng trang giấy A4 */
+        :root {
+            --primary-color: #1a365d;
+            --highlight-bg: #fff3cd;
+            --highlight-text: #856404;
+            
+            /* Bảng màu thông minh cho công thức */
+            --arg-1: #c0392b; /* Đỏ - Đối số 1 */
+            --arg-2: #2980b9; /* Xanh dương - Đối số 2 */
+            --arg-3: #27ae60; /* Xanh lá - Đối số 3 */
+            --arg-4: #8e44ad; /* Tím - Đối số 4 */
+        }
+
+        body {
+            background-color: #e0e0e0;
+            font-family: 'Times New Roman', Times, serif;
+            color: #000;
+            margin: 0;
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Khung giấy A4 */
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            background: #fff;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: relative;
+            box-sizing: border-box;
+            padding: 25mm 20mm; /* Căn lề chuẩn để in */
+            page-break-after: always;
+            line-height: 1.5;
+        }
+
+        /* Ẩn background và đổ bóng khi in thật */
+        @media print {
+            body { background: #fff; padding: 0; }
+            .page { margin: 0; box-shadow: none; border: none; padding: 20mm; }
+        }
+
+        h1 { color: var(--primary-color); font-size: 24px; text-transform: uppercase; border-bottom: 2px solid var(--primary-color); padding-bottom: 5px; margin-top: 0;}
+        h2 { color: var(--primary-color); font-size: 20px; margin-top: 30px;}
+        h3 { font-size: 18px; margin-top: 25px; }
+        
+        .cover-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 297mm;
+        }
+        .cover-title { font-size: 48px; font-weight: bold; color: var(--primary-color); margin-bottom: 10px; border: none; text-transform: uppercase; }
+        .cover-subtitle { font-size: 20px; font-style: italic; color: #555; }
+
+        /* Đánh số trang góc phải dưới */
+        .page-number {
+            position: absolute;
+            bottom: 15mm;
+            right: 20mm;
+            font-size: 12pt;
+            font-weight: bold;
+        }
+
+        /* CSS cho nội dung sách */
+        .syntax { 
+            font-family: 'Courier New', Courier, monospace; 
+            background: #f4f4f4; 
+            padding: 8px 10px; 
+            font-weight: bold; 
+            border-left: 4px solid var(--primary-color); 
+            display: block; 
+            margin: 10px 0; 
+            word-wrap: break-word;
+        }
+        
+        .important-func {
+            background-color: #e8f4f8;
+            border: 2px solid var(--primary-color);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .highlight-text {
+            background-color: var(--highlight-bg);
+            color: var(--highlight-text);
+            font-weight: bold;
+            padding: 2px 4px;
+        }
+
+        /* Tô màu thông minh cho công thức */
+        .arg1 { color: var(--arg-1); }
+        .arg2 { color: var(--arg-2); }
+        .arg3 { color: var(--arg-3); }
+        .arg4 { color: var(--arg-4); }
+
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; page-break-inside: avoid; }
+        th, td { border: 1px solid #000; padding: 8px 12px; text-align: left; }
+        th { background-color: #f2f2f2; font-weight: bold; }
+
+        .note-area {
+            border: 1px dashed #999;
+            min-height: 80px;
+            margin-top: 10px;
+            padding: 10px;
+            color: #999;
+            font-style: italic;
+        }
+        
+        .box { background: #f9f9f9; border: 1px solid #ccc; padding: 15px; margin: 15px 0; }
+    </style>
+</head>
+<body>
+
+    <div class="page cover-page">
+        <h1 class="cover-title">TÀI LIỆU ÔN TẬP EXCEL</h1>
+        <p class="cover-subtitle">Compiled by Codelo</p>
+    </div>
+
+    <div class="page">
+        <h1>MỞ ĐẦU</h1>
+        <p>Giáo trình này được thiết kế để bạn làm chủ Excel một cách nhanh chóng và thực tế nhất. Lộ trình đi từ cơ bản (Toán học, Thống kê) đến nâng cao (Logic, Xử lý chuỗi, Ngày giờ, Tìm kiếm). Mỗi hàm đều được phân tích kỹ với các ví dụ thực tế trong công tác quản lý nhà nước.</p>
+        
+        <h2>Hướng dẫn sử dụng giáo trình</h2>
+        <ol>
+            <li>Đọc lướt qua cú pháp được <strong>Việt hóa và tô màu</strong> để hiểu ý nghĩa từng tham số cấu thành công thức.</li>
+            <li>Phân tích thật kỹ phần Ví dụ mô phỏng bảng Excel để hiểu luồng dữ liệu chạy.</li>
+            <li>Tự tay viết lại công thức vào khu vực NOTE bằng Apple Pencil trước khi gõ trên máy.</li>
+            <li>Làm các bài tập trong phần THỰC HÀNH NHANH sau mỗi chương.</li>
+        </ol>
+
+        <h1>CHƯƠNG 1: HÀM TOÁN HỌC</h1>
+        <div class="box">
+            <strong>TÓM TẮT NHANH</strong><br>
+            Kiến thức trọng tâm: Nắm vững các phép tính toán học cơ bản và có điều kiện trong báo cáo thống kê, tài chính.<br><br>
+            [ ] Đã học &nbsp;&nbsp;&nbsp;&nbsp; [ ] Đã hiểu &nbsp;&nbsp;&nbsp;&nbsp; [ ] Đã thực hành
+        </div>
+
+        <h3>INT (Lấy phần nguyên)</h3>
+        <p><strong>CÔNG DỤNG:</strong> Lấy phần nguyên của một số thực, loại bỏ hoàn toàn phần thập phân.</p>
+        <span class="syntax">=INT(<span class="arg1">Số_cần_lấy_phần_nguyên</span>)</span>
+        <p><strong>VÍ DỤ MÔ PHỎNG EXCEL:</strong> <code>fx = INT(B2)</code></p>
+        <table>
+            <tr><th></th><th>A</th><th>B</th><th>C</th></tr>
+            <tr><td>1</td><td>Nhân Sự</td><td>Ngày Phép</td><td>Làm Tròn</td></tr>
+            <tr><td>2</td><td>Nguyễn Văn A</td><td>12.5</td><td>12</td></tr>
+        </table>
+        <p><strong>MẸO & LỖI CẦN TRÁNH:</strong><br>
+        Mẹo: INT = Integer. Luôn làm tròn xuống số nguyên nhỏ hơn trên trục số.<br>
+        ! Cẩn thận: Khi dùng số âm =INT(-8.9) sẽ ra -9 chứ không phải -8.</p>
+        <div class="note-area">NOTE: </div>
+
+        <div class="page-number">1</div>
+    </div>
+
+    <div class="page">
+        <h3>MOD (Lấy phần dư)</h3>
+        <p><strong>CÔNG DỤNG:</strong> Lấy phần dư của một phép chia.</p>
+        <span class="syntax">=MOD(<span class="arg1">Số_bị_chia</span>, <span class="arg2">Số_chia</span>)</span>
+        <p><strong>VÍ DỤ MÔ PHỎNG EXCEL:</strong> <code>fx = MOD(A2, B2)</code></p>
+        <table>
+            <tr><th></th><th>A</th><th>B</th><th>C</th></tr>
+            <tr><td>1</td><td>Tổng Hồ Sơ</td><td>Sức Chứa/Tủ</td><td>Hồ Sơ Dư</td></tr>
+            <tr><td>2</td><td>25</td><td>4</td><td>1</td></tr>
+        </table>
+        <p><strong>GIẢI THÍCH ĐÁP ÁN:</strong><br>Phép toán 25 chia 4 được 6, dư 1. Hàm MOD trả về đúng phần dư đó là 1.</p>
+        <p><strong>MẸO & LỖI CẦN TRÁNH:</strong><br>
+        Mẹo: Rất hay dùng để xác định dòng chẵn lẻ: MOD(ROW(), 2). Báo lỗi #DIV/0! nếu Số_chia là 0.</p>
+        <div class="note-area">NOTE: </div>
+
+        <h3>ROUND (Làm tròn số)</h3>
+        <p><strong>CÔNG DỤNG:</strong> Làm tròn số theo vị trí thập phân.</p>
+        <span class="syntax">=ROUND(<span class="arg1">Số_cần_làm_tròn</span>, <span class="arg2">Vị_trí_làm_tròn</span>)</span>
+        <p><strong>VÍ DỤ MÔ PHỎNG EXCEL:</strong> <code>fx = ROUND(A2, 0)</code></p>
+        <table>
+            <tr><th></th><th>A</th><th>B</th></tr>
+            <tr><td>1</td><td>Số Tiền Lẻ</td><td>Sổ Sách (Làm tròn đến hàng đơn vị)</td></tr>
+            <tr><td>2</td><td>150.6</td><td>151</td></tr>
+        </table>
+        <p><strong>GIẢI THÍCH ĐÁP ÁN:</strong><br>Vị trí 0 yêu cầu làm tròn đến hàng đơn vị. Vì số thập phân là 0.6 (>= 0.5), hàm tự động làm tròn lên thành 151.</p>
+        <div class="note-area">NOTE: </div>
+
+        <h3>SUM (Tính tổng)</h3>
+        <p><strong>CÔNG DỤNG:</strong> Tính tổng các giá trị trong vùng dữ liệu được chọn.</p>
+        <span class="syntax">=SUM(<span class="arg1">Vùng_dữ_liệu_cần_cộng</span>)</span>
+        <p><strong>VÍ DỤ MÔ PHỎNG EXCEL:</strong> <code>fx = SUM(B2:B3)</code></p>
+        <table>
+            <tr><th></th><th>A</th><th>B</th></tr>
+            <tr><td>1</td><td>Khoản Chi</td><td>Số Tiền</td></tr>
+            <tr><td>2</td><td>Điện</td><td>100</td></tr>
+            <tr><td>3</td><td>Nước</td><td>50</td></tr>
+            <tr><td>4</td><td>Tổng Chi</td><td>150</td></tr>
+        </table>
+        <div class="note-area">NOTE: </div>
+
+        <div class="page-number">2</div>
+    </div>
+
+    <div class="page">
+        <h3>SUMIF (Tính tổng có điều kiện)</h3>
+        <p><strong>CÔNG DỤNG:</strong> Tính tổng các giá trị thoả mãn một điều kiện nhất định.</p>
+        <span class="syntax">=SUMIF(<span class="arg1">Vùng_dò_tìm_điều_kiện</span>, <span class="arg2">"Điều_kiện_cần_lọc"</span>, <span class="arg3">Vùng_chứa_số_để_cộng</span>)</span>
+        <p><strong>VÍ DỤ MÔ PHỎNG EXCEL:</strong> <code>fx = SUMIF(A2:A4, "Q1", B2:B4)</code></p>
+        <table>
+            <tr><th></th><th>A</th><th>B</th></tr>
+            <tr><td>1</td><td>Quận</td><td>Tiền Thuế</td></tr>
+            <tr><td>2</td><td>Q1</td><td>10</td></tr>
+            <tr><td>3</td><td>Q2</td><td>20</td></tr>
+            <tr><td>4</td><td>Q1</td><td>30</td></tr>
+        </table>
+        <p><strong>GIẢI THÍCH ĐÁP ÁN:</strong><br>Hàm quét vùng A2:A4, tìm ra 2 dòng chứa "Q1". Sau đó lấy số tương ứng ở cột B cộng lại (10 + 30 = 40).</p>
+        <div class="note-area">NOTE: </div>
+
+        <h2>THỰC HÀNH NHANH</h2>
+        <p>Bài tập 1: Dùng SUMIF tính tổng chi phí công tác của các cán bộ phòng 'Nhân sự'.</p>
+        <p>Bài tập 2: Dùng INT và MOD để tính số thùng tài liệu (mỗi thùng 10 bộ) từ tổng 125 bộ hồ sơ.</p>
+        <div class="note-area" style="min-height: 120px;">NOTE: </div>
+
+        <h1>CHƯƠNG 2: HÀM THỐNG KÊ</h1>
+
+        <h3>MAX / MIN / AVERAGE</h3>
+        <p><strong>CÔNG DỤNG:</strong> Tìm Lớn nhất (MAX), Nhỏ nhất (MIN) hoặc Trung bình cộng (AVERAGE).</p>
+        <span class="syntax">=MAX(<span class="arg1">Vùng_dữ_liệu</span>) <br>=AVERAGE(<span class="arg1">Vùng_dữ_liệu</span>)</span>
+        <p><strong>VÍ DỤ MÔ PHỎNG EXCEL:</strong> <code>fx = AVERAGE(B2:B4)</code></p>
+        <table>
+            <tr><th></th><th>A</th><th>B</th></tr>
+            <tr><td>1</td><td>Học Sinh</td><td>Điểm</td></tr>
+            <tr><td>2</td><td>Học sinh A</td><td>8</td></tr>
+            <tr><td>3</td><td>Học sinh B</td><td>10</td></tr>
+            <tr><td>4</td><td>Học sinh C</td><td>6</td></tr>
+        </table>
+        <div class="page-number">3</div>
+    </div>
+
+    <div class="page">
+        <h3>RANK (Xếp hạng)</h3>
+        <p><strong>CÔNG DỤNG:</strong> Xếp thứ hạng dữ liệu trong một tập hợp.</p>
+        <span class="syntax">=RANK(<span class="arg1">Số_cần_xếp_hạng</span>, <span class="arg2">Vùng_chứa_tất_cả_các_số_để_so_sánh</span>, <span class="arg3">0_Giảm_hoặc_1_Tăng</span>)</span>
+        <p><strong>VÍ DỤ MÔ PHỎNG EXCEL:</strong> <code>fx = RANK(B2, $B$2:$B$3, 0)</code></p>
+        <table>
+            <tr><th></th><th>A</th><th>B</th><th>C</th></tr>
+            <tr><td>1</td><td>Tên</td><td>Điểm</td><td>Hạng</td></tr>
+            <tr><td>2</td><td>Học sinh A</td><td>9</td><td>1</td></tr>
+            <tr><td>3</td><td>Học sinh B</td><td>7</td><td>2</td></tr>
+        </table>
+        <p><strong>MẸO:</strong> Bắt buộc bọc đô la ($) để cố định vùng so sánh (Nhấn F4).</p>
+
+        <h3>COUNT / COUNTA / COUNTBLANK</h3>
+        <p><strong>CÔNG DỤNG:</strong> Đếm SỐ (COUNT), đếm CÓ CHỮ SỐ (COUNTA), đếm TRỐNG (COUNTBLANK).</p>
+        <span class="syntax">=COUNT(<span class="arg1">Vùng_cần_đếm</span>)</span>
+        <p><strong>VÍ DỤ MÔ PHỎNG EXCEL:</strong> <code>fx = COUNTA(B2:B4)</code></p>
+        <table>
+            <tr><th></th><th>A</th><th>B</th><th>C</th></tr>
+            <tr><td>1</td><td>Mã</td><td>Tên</td><td>Tuổi</td></tr>
+            <tr><td>2</td><td>01</td><td>Lan</td><td>20</td></tr>
+            <tr><td>3</td><td>02</td><td></td><td></td></tr>
+            <tr><td>4</td><td>03</td><td>Tuấn</td><td>25</td></tr>
+        </table>
+        <p><strong>GIẢI THÍCH:</strong> COUNTA cột Tên ra 2. COUNT cột Tuổi ra 2. COUNTBLANK đếm ra 1 ô trống.</p>
+
+        <h3>COUNTIF (Đếm có điều kiện)</h3>
+        <p><strong>CÔNG DỤNG:</strong> Đếm số lượng ô thoả mãn điều kiện.</p>
+        <span class="syntax">=COUNTIF(<span class="arg1">Vùng_chứa_điều_kiện</span>, <span class="arg2">"Điều_kiện_cần_đếm"</span>)</span>
+        <p><strong>VÍ DỤ MÔ PHỎNG EXCEL:</strong> <code>fx = COUNTIF(B2:B4, "Nam")</code></p>
+        <table>
+            <tr><th></th><th>A</th><th>B</th></tr>
+            <tr><td>1</td><td>Tên</td><td>Phái</td></tr>
+            <tr><td>2</td><td>Nhân viên A</td><td>Nam</td></tr>
+            <tr><td>3</td><td>Nhân viên B</td><td>Nữ</td></tr>
+            <tr><td>4</td><td>Nhân viên C</td><td>Nam</td></tr>
+        </table>
+        <p><strong>MẸO:</strong> Có thể dùng (*) đại diện. VD: <code>COUNTIF(A1:A10, "*Hồ*")</code> đếm người họ Hồ.</p>
+        <div class="page-number">4</div>
+    </div>
+
+    <div class="page">
+        <h1>CHƯƠNG 3: HÀM LOGIC</h1>
+
+        <h3>AND / OR / NOT</h3>
+        <p><strong>CÔNG DỤNG:</strong> AND (TẤT CẢ phải đúng) / OR (CHỈ CẦN 1 đúng).</p>
+        <span class="syntax">=AND(<span class="arg1">Điều_kiện_1</span>, <span class="arg2">Điều_kiện_2</span>)</span>
+        <p><strong>VÍ DỤ MÔ PHỎNG EXCEL:</strong> <code>fx = AND(A2>=8, B2="Tốt")</code></p>
+        <table>
+            <tr><th></th><th>A</th><th>B</th><th>C</th></tr>
+            <tr><td>1</td><td>Điểm</td><td>Hạnh Kiểm</td><td>Đạt Thưởng</td></tr>
+            <tr><td>2</td><td>8</td><td>Tốt</td><td>TRUE</td></tr>
+            <tr><td>3</td><td>5</td><td>Tốt</td><td>FALSE</td></tr>
+        </table>
+
+        <h3>IF (Kiểm tra điều kiện)</h3>
+        <p><strong>CÔNG DỤNG:</strong> Kiểm tra điều kiện và trả về kết quả tuỳ ý nếu Đúng hoặc Sai.</p>
+        <span class="syntax">=IF(<span class="arg1">Điều_kiện_cần_kiểm_tra</span>, <span class="arg2">"Kết_quả_nếu_ĐÚNG"</span>, <span class="arg3">"Kết_quả_nếu_SAI"</span>)</span>
+        <p><strong>VÍ DỤ MÔ PHỎNG EXCEL:</strong> <code>fx = IF(A2="Duyệt", "In hồ sơ", "Khoan In")</code></p>
+        <table>
+            <tr><th></th><th>A</th><th>B</th></tr>
+            <tr><td>1</td><td>Trạng Thái</td><td>Hành Động</td></tr>
+            <tr><td>2</td><td>Duyệt</td><td>In hồ sơ</td></tr>
+            <tr><td>3</td><td>Chờ</td><td>Khoan In</td></tr>
+        </table>
+        <p><strong>MẸO:</strong> Nên vẽ sơ đồ tư duy ra nháp khi viết hàm IF lồng nhau nhiều tầng.</p>
+        <div class="note-area">NOTE: </div>
+
+        <h1>CHƯƠNG 4: HÀM XỬ LÝ CHUỖI</h1>
+        
+        <h3>LEN (Đếm số ký tự)</h3>
+        <span class="syntax">=LEN(<span class="arg1">Chuỗi_hoặc_ô_cần_đếm</span>)</span>
+        <p><strong>VÍ DỤ:</strong> <code>=LEN("VN123")</code> trả về 5.</p>
+
+        <div class="page-number">5</div>
+    </div>
+
+    <div class="page">
+        <h3>LEFT / RIGHT / MID (Cắt chuỗi)</h3>
+        <p><strong>CÔNG DỤNG:</strong> Cắt đoạn ký tự từ Trái (LEFT), Phải (RIGHT) hoặc Giữa (MID).</p>
+        <span class="syntax">=MID(<span class="arg1">Ô_chứa_chuỗi_gốc</span>, <span class="arg2">Vị_trí_bắt_đầu_cắt</span>, <span class="arg3">Số_ký_tự_cần_lấy</span>)</span>
+        <p><strong>VÍ DỤ MÔ PHỎNG EXCEL:</strong> <code>fx = MID(A2, 4, 4)</code></p>
+        <table>
+            <tr><th></th><th>A</th><th>B</th></tr>
+            <tr><td>1</td><td>Mã Hồ Sơ</td><td>Cắt Năm (MID)</td></tr>
+            <tr><td>2</td><td>HC-2026-X</td><td>2026</td></tr>
+        </table>
+        <p><strong>GIẢI THÍCH:</strong> Hàm nhảy vào vị trí số 4 (chữ số 2), lấy đủ 4 ký tự rồi dừng.</p>
+
+        <h3>VALUE (Đổi chữ thành số)</h3>
+        <p><strong>CÔNG DỤNG:</strong> Chuyển chuỗi ký tự số (dạng Text) thành Số thực sự để tính toán.</p>
+        <span class="syntax">=VALUE(<span class="arg1">Chuỗi_số_dạng_chữ</span>)</span>
+        <p><strong>VÍ DỤ:</strong> Biến chữ '005' thành con số 5 thực sự, sẵn sàng để cộng trừ.</p>
+        <div class="note-area">NOTE: </div>
+
+        <h1>CHƯƠNG 5: HÀM NGÀY GIỜ</h1>
+
+        <h3>NOW / TODAY (Ngày hiện tại)</h3>
+        <span class="syntax">=NOW() <i>(Có cả giờ)</i> <br>=TODAY() <i>(Chỉ có ngày)</i></span>
+        <p><strong>VÍ DỤ:</strong> Tính số ngày lưu hồ sơ: <code>=TODAY() - Ngày_nhận</code>.</p>
+
+        <h3>DAY / MONTH / YEAR / DATE</h3>
+        <span class="syntax">=YEAR(<span class="arg1">Ô_chứa_ngày</span>) <br>=DATE(<span class="arg1">Năm</span>, <span class="arg2">Tháng</span>, <span class="arg3">Ngày</span>)</span>
+        <p><strong>CẨN THẬN:</strong> Hàm DATE bắt buộc nhập theo thứ tự Năm trước -> Tháng -> Ngày.</p>
+
+        <h3>WEEKDAY (Kiểm tra thứ mấy)</h3>
+        <span class="syntax">=WEEKDAY(<span class="arg1">Ô_chứa_ngày</span>)</span>
+        <p><strong>MẸO:</strong> Số 1 mặc định đại diện cho Chủ Nhật. Kết hợp: <code>=IF(WEEKDAY(A2)=1, "Nghỉ", "Làm")</code>.</p>
+
+        <div class="page-number">6</div>
+    </div>
+
+    <div class="page">
+        <h1>CHƯƠNG 6: TÌM KIẾM, THAM CHIẾU VÀ RÚT TRÍCH</h1>
+
+        <div class="important-func">
+            <h3><span class="highlight-text">VLOOKUP (Tìm Kiếm Dọc - QUAN TRỌNG)</span></h3>
+            <span class="syntax">
+                =VLOOKUP(
+                <span class="arg1">Giá_trị_mang_đi_tìm</span>, 
+                <span class="arg2">Bảng_chứa_dữ_liệu_gốc</span>, 
+                <span class="arg3">Cột_số_mấy_cần_lấy_kết_quả</span>, 
+                <span class="arg4">0_Tìm_chính_xác</span>)
+            </span>
+            <p><strong>VÍ DỤ MÔ PHỎNG EXCEL:</strong> <code>fx = VLOOKUP(A2, $D$1:$E$2, 2, 0)</code></p>
+            <table>
+                <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr>
+                <tr><td>1</td><td>Mã Tìm</td><td>Tên</td><td></td><td>Mã Gốc</td><td>Tên Gốc</td></tr>
+                <tr><td>2</td><td>CB01</td><td>Lê Thị C</td><td></td><td>CB01</td><td>Lê Thị C</td></tr>
+            </table>
+            <p><strong>MẸO:</strong> Thần chú VLOOKUP: TÌM CÁI GÌ -> Ở ĐÂU (Nhớ nhấn F4) -> LẤY CỘT MẤY -> SỐ 0.</p>
+        </div>
+
+        <div class="important-func" style="margin-top: 20px;">
+            <h3><span class="highlight-text">HLOOKUP (Tìm Kiếm Ngang)</span></h3>
+            <span class="syntax">
+                =HLOOKUP(
+                <span class="arg1">Giá_trị_mang_đi_tìm</span>, 
+                <span class="arg2">Bảng_chứa_dữ_liệu_gốc</span>, 
+                <span class="arg3">Hàng_số_mấy_cần_lấy_kết_quả</span>, 
+                <span class="arg4">0_Tìm_chính_xác</span>)
+            </span>
+            <p><strong>GIẢI THÍCH:</strong> Tương tự VLOOKUP, nhưng thay vì dò dọc theo cột, HLOOKUP quét dọc theo hàng ngang đầu tiên, sau đó lấy dữ liệu ở hàng tương ứng bên dưới.</p>
+        </div>
+
+        <h3>MATCH (Tìm vị trí toạ độ)</h3>
+        <p><strong>CÔNG DỤNG:</strong> Xác định VỊ TRÍ (số thứ tự) của một giá trị nằm ở ô thứ mấy.</p>
+        <span class="syntax">=MATCH(<span class="arg1">Giá_trị_tìm</span>, <span class="arg2">Cột_hoặc_hàng_chứa_nó</span>, <span class="arg3">0</span>)</span>
+        <p><strong>VÍ DỤ:</strong> <code>=MATCH("Timo", C1:C3, 0)</code> đếm từ trên xuống chữ "Timo" nằm ở ô số 2, trả về kết quả là 2.</p>
+
+        <div class="page-number">7</div>
+    </div>
+
+    <div class="page">
+        <h3>INDEX (Lấy dữ liệu theo toạ độ)</h3>
+        <p><strong>CÔNG DỤNG:</strong> Trích xuất giá trị tại một toạ độ (Dòng, Cột) cụ thể trong ma trận bảng.</p>
+        <span class="syntax">
+            =INDEX(
+            <span class="arg1">Bảng_dữ_liệu_cần_trích_xuất</span>, 
+            <span class="arg2">Toạ_độ_dòng</span>, 
+            <span class="arg3">Toạ_độ_cột</span>)
+        </span>
+        <p><strong>VÍ DỤ MÔ PHỎNG EXCEL:</strong> <code>fx = INDEX(A1:B2, 2, 2)</code></p>
+        <table>
+            <tr><th></th><th>A</th><th>B</th></tr>
+            <tr><td>1</td><td>Tên</td><td>Lương</td></tr>
+            <tr><td>2</td><td>Nguyễn Văn D</td><td>15000</td></tr>
+        </table>
+        <p><strong>GIẢI THÍCH:</strong> Hàm chạy vào Dòng 2 và Cột 2 của bảng ma trận, lấy ra mức lương 15000. Kết hợp tuyệt chiêu <code>=INDEX(..., MATCH(...))</code> để dò tìm ngược từ phải sang trái (VLOOKUP không làm được).</p>
+
+        <div class="important-func" style="margin-top: 20px; background-color: #fcf3cf; border-color: #f1c40f;">
+            <h3><span class="highlight-text" style="background:#f1c40f; color:#000;">FILTER (Hàm Rút Trích Dữ Liệu Nâng Cao)</span></h3>
+            <p><strong>CÔNG DỤNG:</strong> Lọc và rút trích toàn bộ một mảng dữ liệu thoả mãn điều kiện ra một khu vực mới (thay thế chức năng Advanced Filter rất hiệu quả).</p>
+            <span class="syntax">
+                =FILTER(
+                <span class="arg1">Vùng_bảng_muốn_rút_trích</span>, 
+                <span class="arg2">Cột_điều_kiện = "Điều kiện"</span>, 
+                <span class="arg3">"Báo_lỗi_nếu_không_tìm_thấy"</span>)
+            </span>
+            <p><strong>VÍ DỤ MÔ PHỎNG EXCEL:</strong> Cần trích xuất danh sách nhân sự ở phòng "Kế Toán".<br>
+            <code>fx = FILTER(A2:C10, B2:B10 = "Kế Toán", "Trống")</code></p>
+            <p><strong>GIẢI THÍCH:</strong> Hàm sẽ tự động tạo ra một bảng mới bê y nguyên toàn bộ thông tin của những người thuộc phòng Kế Toán từ bảng gốc (A2:C10) sang mà không cần kéo công thức xuống từng dòng.</p>
+        </div>
+
+        <div class="page-number">8</div>
+    </div>
+
+    <div class="page">
+        <h1>CHEAT SHEET - TỔNG HỢP HÀM</h1>
+        <table>
+            <tr>
+                <th style="width: 25%">Tên Hàm</th>
+                <th style="width: 45%">Cú Pháp</th>
+                <th style="width: 30%">Công Dụng Chính</th>
+            </tr>
+            <tr>
+                <td>INT</td>
+                <td>=INT(number)</td>
+                <td>Lấy phần nguyên số thực.</td>
+            </tr>
+            <tr>
+                <td>MOD</td>
+                <td>=MOD(number, divisor)</td>
+                <td>Lấy phần dư của phép chia.</td>
+            </tr>
+            <tr>
+                <td>ROUND</td>
+                <td>=ROUND(number, num_digits)</td>
+                <td>Làm tròn số theo vị trí.</td>
+            </tr>
+            <tr>
+                <td>SUMIF</td>
+                <td>=SUMIF(range, criteria, sum_range)</td>
+                <td>Tính tổng có 1 điều kiện.</td>
+            </tr>
+            <tr>
+                <td>RANK</td>
+                <td>=RANK(number, ref, [order])</td>
+                <td>Xếp thứ hạng dữ liệu.</td>
+            </tr>
+            <tr>
+                <td>COUNTIF</td>
+                <td>=COUNTIF(range, criteria)</td>
+                <td>Đếm số lượng ô có điều kiện.</td>
+            </tr>
+            <tr>
+                <td>IF</td>
+                <td>=IF(logical, value_true, value_false)</td>
+                <td>Kiểm tra điều kiện đúng/sai.</td>
+            </tr>
+            <tr>
+                <td>MID</td>
+                <td>=MID(text, start_num, num_chars)</td>
+                <td>Cắt chữ đoạn giữa.</td>
+            </tr>
+            <tr>
+                <td>VALUE</td>
+                <td>=VALUE(text)</td>
+                <td>Biến chuỗi chữ thành số thực.</td>
+            </tr>
+            <tr>
+                <td>DATE</td>
+                <td>=DATE(year, month, day)</td>
+                <td>Gộp số rời rạc thành Ngày.</td>
+            </tr>
+            <tr>
+                <td><span class="highlight-text">VLOOKUP</span></td>
+                <td>=VLOOKUP(val, table, col, 0)</td>
+                <td>Tìm kiếm Cột Dọc.</td>
+            </tr>
+            <tr>
+                <td><span class="highlight-text">INDEX</span></td>
+                <td>=INDEX(array, row, col)</td>
+                <td>Lấy toạ độ ma trận.</td>
+            </tr>
+            <tr>
+                <td><span class="highlight-text" style="background:#f1c40f;">FILTER</span></td>
+                <td>=FILTER(array, include, [if_empty])</td>
+                <td>Rút trích mảng dữ liệu.</td>
+            </tr>
+        </table>
+        <div class="page-number">9</div>
+    </div>
+
+</body>
+</html>
